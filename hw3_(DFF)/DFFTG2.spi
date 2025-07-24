@@ -1,0 +1,367 @@
+************************************************************************
+* auCdl Netlist:
+* 
+* Library Name:  VLSI
+* Top Cell Name: invchn
+* View Name:     schematic
+* Netlisted on:  Nov 19 17:31:43 2024
+************************************************************************
+
+*.BIPOLAR
+*.RESI = 2000 
+*.RESVAL
+*.CAPVAL
+*.DIOPERI
+*.DIOAREA
+*.EQUATION
+*.SCALE METER
+*.MEGA
+.PARAM
+
+
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    TG
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT TG A B EN ENbar VDD VSS
+*.PININFO EN:I ENbar:I A:B B:B VDD:B VSS:B
+MM1 A ENbar B VDD P_18 W=1u L=180.00n m=1
+MM0 A EN B VSS N_18 W=1u L=180.00n m=1
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    inv
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT inv IN OUT VDD VSS
+*.PININFO IN:I OUT:O VDD:B VSS:B
+Mm2 OUT IN VSS VSS N_18 W=500.0n L=180n m=1
+Mm1 OUT IN VDD VDD P_18 W=1.85u L=180n m=1
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    DFFTG
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT DFFTG CLK D Q QM VDD VSS
+*.PININFO CLK:I D:B Q:B QM:B VDD:B VSS:B
+XI10 net32 net8 CLK net56 VDD VSS / TG
+XI9 net36 net8 net56 CLK VDD VSS / TG
+XI3 net48 net26 CLK net56 VDD VSS / TG
+XI2 net52 net26 net56 CLK VDD VSS / TG
+XI13 QM net32 VDD VSS / inv
+XI12 Q net36 VDD VSS / inv
+XI11 net8 Q VDD VSS / inv
+XI5 net26 QM VDD VSS / inv
+XI4 QM net48 VDD VSS / inv
+XI1 D net52 VDD VSS / inv
+XI0 CLK net56 VDD VSS / inv
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    invchn
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT DFFTG2 CLK D1 D2 Q1 Q2 QM1 QM2 VDD VSS
+*.PININFO CLK:I D1:I D2:B Q1:B Q2:B QM1:B QM2:B VDD:B VSS:B
+XI299 CLK D1 Q1 QM1 VDD VSS / DFFTG
+XI300 CLK D2 Q2 QM2 VDD VSS / DFFTG
+XI289 net035 net036 VDD VSS / inv
+XI288 net056 net040 VDD VSS / inv
+XI287 net040 net044 VDD VSS / inv
+XI286 net036 net048 VDD VSS / inv
+XI285 net048 net052 VDD VSS / inv
+XI284 net052 net056 VDD VSS / inv
+XI283 net064 net060 VDD VSS / inv
+XI282 net068 net064 VDD VSS / inv
+XI281 net080 net068 VDD VSS / inv
+XI280 net076 net072 VDD VSS / inv
+XI279 net060 net076 VDD VSS / inv
+XI278 net044 net080 VDD VSS / inv
+XI277 net0120 net084 VDD VSS / inv
+XI276 net0104 net088 VDD VSS / inv
+XI275 net088 net0191 VDD VSS / inv
+XI274 net084 net096 VDD VSS / inv
+XI273 net096 net0100 VDD VSS / inv
+XI272 net0100 net0104 VDD VSS / inv
+XI271 net0112 net0108 VDD VSS / inv
+XI270 net0116 net0112 VDD VSS / inv
+XI269 net0128 net0116 VDD VSS / inv
+XI268 net0124 net0120 VDD VSS / inv
+XI267 net0108 net0124 VDD VSS / inv
+XI266 net072 net0128 VDD VSS / inv
+XI265 net0156 net0132 VDD VSS / inv
+XI262 net0132 net0136 VDD VSS / inv
+XI261 net0136 net0140 VDD VSS / inv
+XI260 net0140 net0331 VDD VSS / inv
+XI253 net0184 net0148 VDD VSS / inv
+XI252 net0168 net0152 VDD VSS / inv
+XI251 net0152 net0156 VDD VSS / inv
+XI250 net0148 net0160 VDD VSS / inv
+XI249 net0160 net0164 VDD VSS / inv
+XI248 net0164 net0168 VDD VSS / inv
+XI247 net0176 net0172 VDD VSS / inv
+XI246 net0180 net0176 VDD VSS / inv
+XI245 net0192 net0180 VDD VSS / inv
+XI244 net0188 net0184 VDD VSS / inv
+XI243 net0172 net0188 VDD VSS / inv
+XI242 net0191 net0192 VDD VSS / inv
+XI241 net0195 net0196 VDD VSS / inv
+XI240 net0216 net0200 VDD VSS / inv
+XI239 net0200 net0204 VDD VSS / inv
+XI238 net0196 net0208 VDD VSS / inv
+XI237 net0208 net0212 VDD VSS / inv
+XI236 net0212 net0216 VDD VSS / inv
+XI235 net0224 net0220 VDD VSS / inv
+XI234 net0228 net0224 VDD VSS / inv
+XI233 net0240 net0228 VDD VSS / inv
+XI232 net0236 net0232 VDD VSS / inv
+XI231 net0220 net0236 VDD VSS / inv
+XI230 net0204 net0240 VDD VSS / inv
+XI229 net0280 net0244 VDD VSS / inv
+XI228 net0264 net0248 VDD VSS / inv
+XI227 net0248 net035 VDD VSS / inv
+XI226 net0244 net0256 VDD VSS / inv
+XI225 net0256 net0260 VDD VSS / inv
+XI224 net0260 net0264 VDD VSS / inv
+XI223 net0272 net0268 VDD VSS / inv
+XI222 net0276 net0272 VDD VSS / inv
+XI221 net0288 net0276 VDD VSS / inv
+XI220 net0284 net0280 VDD VSS / inv
+XI219 net0268 net0284 VDD VSS / inv
+XI218 net0232 net0288 VDD VSS / inv
+XI217 net0348 net0292 VDD VSS / inv
+XI216 net0312 net0296 VDD VSS / inv
+XI215 net0296 net0300 VDD VSS / inv
+XI214 net0292 net0304 VDD VSS / inv
+XI213 net0304 net0308 VDD VSS / inv
+XI212 net0308 net0312 VDD VSS / inv
+XI211 net0320 net0316 VDD VSS / inv
+XI210 net0324 net0320 VDD VSS / inv
+XI209 net0336 net0324 VDD VSS / inv
+XI208 net0332 net0195 VDD VSS / inv
+XI207 net0316 net0332 VDD VSS / inv
+XI206 net0300 net0336 VDD VSS / inv
+XI205 net0376 net0340 VDD VSS / inv
+XI204 net0360 net0344 VDD VSS / inv
+XI203 net0344 net0348 VDD VSS / inv
+XI202 net0340 net0352 VDD VSS / inv
+XI201 net0352 net0356 VDD VSS / inv
+XI200 net0356 net0360 VDD VSS / inv
+XI199 net0368 net0364 VDD VSS / inv
+XI198 net0372 net0368 VDD VSS / inv
+XI197 net0384 net0372 VDD VSS / inv
+XI196 net0380 net0376 VDD VSS / inv
+XI195 net0364 net0380 VDD VSS / inv
+XI194 net0904 net0384 VDD VSS / inv
+XI193 Q1 net0388 VDD VSS / inv
+XI192 net0408 net0392 VDD VSS / inv
+XI191 net0392 net0396 VDD VSS / inv
+XI190 net0388 net0400 VDD VSS / inv
+XI189 net0400 net0404 VDD VSS / inv
+XI188 net0404 net0408 VDD VSS / inv
+XI187 net0416 net0412 VDD VSS / inv
+XI186 net0420 net0416 VDD VSS / inv
+XI185 net0432 net0420 VDD VSS / inv
+XI184 net0428 net0424 VDD VSS / inv
+XI183 net0412 net0428 VDD VSS / inv
+XI182 net0396 net0432 VDD VSS / inv
+XI181 net0472 net0436 VDD VSS / inv
+XI180 net0456 net0440 VDD VSS / inv
+XI179 net0440 net0575 VDD VSS / inv
+XI178 net0436 net0448 VDD VSS / inv
+XI177 net0448 net0452 VDD VSS / inv
+XI176 net0452 net0456 VDD VSS / inv
+XI175 net0464 net0460 VDD VSS / inv
+XI174 net0468 net0464 VDD VSS / inv
+XI173 net0480 net0468 VDD VSS / inv
+XI172 net0476 net0472 VDD VSS / inv
+XI171 net0460 net0476 VDD VSS / inv
+XI170 net0424 net0480 VDD VSS / inv
+XI169 net0540 net0484 VDD VSS / inv
+XI168 net0504 net0488 VDD VSS / inv
+XI167 net0488 net0492 VDD VSS / inv
+XI166 net0484 net0496 VDD VSS / inv
+XI165 net0496 net0500 VDD VSS / inv
+XI164 net0500 net0504 VDD VSS / inv
+XI163 net0512 net0508 VDD VSS / inv
+XI162 net0516 net0512 VDD VSS / inv
+XI161 net0528 net0516 VDD VSS / inv
+XI160 net0524 net0767 VDD VSS / inv
+XI159 net0508 net0524 VDD VSS / inv
+XI158 net0492 net0528 VDD VSS / inv
+XI157 net0568 net0532 VDD VSS / inv
+XI156 net0552 net0536 VDD VSS / inv
+XI155 net0536 net0540 VDD VSS / inv
+XI154 net0532 net0544 VDD VSS / inv
+XI153 net0544 net0548 VDD VSS / inv
+XI152 net0548 net0552 VDD VSS / inv
+XI151 net0560 net0556 VDD VSS / inv
+XI150 net0564 net0560 VDD VSS / inv
+XI149 net0576 net0564 VDD VSS / inv
+XI148 net0572 net0568 VDD VSS / inv
+XI147 net0556 net0572 VDD VSS / inv
+XI146 net0575 net0576 VDD VSS / inv
+XI145 net0579 net0580 VDD VSS / inv
+XI144 net0600 net0584 VDD VSS / inv
+XI143 net0584 net0588 VDD VSS / inv
+XI142 net0580 net0592 VDD VSS / inv
+XI141 net0592 net0596 VDD VSS / inv
+XI140 net0596 net0600 VDD VSS / inv
+XI139 net0608 net0604 VDD VSS / inv
+XI138 net0612 net0608 VDD VSS / inv
+XI137 net0624 net0612 VDD VSS / inv
+XI136 net0620 net0616 VDD VSS / inv
+XI135 net0604 net0620 VDD VSS / inv
+XI134 net0588 net0624 VDD VSS / inv
+XI133 net0664 net0628 VDD VSS / inv
+XI132 net0648 net0632 VDD VSS / inv
+XI131 net0632 net21 VDD VSS / inv
+XI130 net0628 net0640 VDD VSS / inv
+XI129 net0640 net0644 VDD VSS / inv
+XI128 net0644 net0648 VDD VSS / inv
+XI127 net0656 net0652 VDD VSS / inv
+XI126 net0660 net0656 VDD VSS / inv
+XI125 net0672 net0660 VDD VSS / inv
+XI124 net0668 net0664 VDD VSS / inv
+XI123 net0652 net0668 VDD VSS / inv
+XI122 net0616 net0672 VDD VSS / inv
+XI121 net0732 net0676 VDD VSS / inv
+XI120 net0696 net0680 VDD VSS / inv
+XI119 net0680 net0684 VDD VSS / inv
+XI118 net0676 net0688 VDD VSS / inv
+XI117 net0688 net0692 VDD VSS / inv
+XI116 net0692 net0696 VDD VSS / inv
+XI115 net0704 net0700 VDD VSS / inv
+XI114 net0708 net0704 VDD VSS / inv
+XI113 net0720 net0708 VDD VSS / inv
+XI112 net0716 net0579 VDD VSS / inv
+XI111 net0700 net0716 VDD VSS / inv
+XI110 net0684 net0720 VDD VSS / inv
+XI109 net0760 net0724 VDD VSS / inv
+XI108 net0744 net0728 VDD VSS / inv
+XI107 net0728 net0732 VDD VSS / inv
+XI106 net0724 net0736 VDD VSS / inv
+XI105 net0736 net0740 VDD VSS / inv
+XI104 net0740 net0744 VDD VSS / inv
+XI103 net0752 net0748 VDD VSS / inv
+XI102 net0756 net0752 VDD VSS / inv
+XI101 net0768 net0756 VDD VSS / inv
+XI100 net0764 net0760 VDD VSS / inv
+XI99 net0748 net0764 VDD VSS / inv
+XI98 net0767 net0768 VDD VSS / inv
+XI97 net0771 net0772 VDD VSS / inv
+XI96 net0792 net0776 VDD VSS / inv
+XI95 net0776 net0780 VDD VSS / inv
+XI94 net0772 net0784 VDD VSS / inv
+XI93 net0784 net0788 VDD VSS / inv
+XI92 net0788 net0792 VDD VSS / inv
+XI91 net0800 net0796 VDD VSS / inv
+XI90 net0804 net0800 VDD VSS / inv
+XI89 net0816 net0804 VDD VSS / inv
+XI88 net0812 net0808 VDD VSS / inv
+XI87 net0796 net0812 VDD VSS / inv
+XI86 net0780 net0816 VDD VSS / inv
+XI85 net0856 net0820 VDD VSS / inv
+XI84 net0840 net0824 VDD VSS / inv
+XI83 net0824 net0959 VDD VSS / inv
+XI82 net0820 net0832 VDD VSS / inv
+XI81 net0832 net0836 VDD VSS / inv
+XI80 net0836 net0840 VDD VSS / inv
+XI79 net0848 net0844 VDD VSS / inv
+XI78 net0852 net0848 VDD VSS / inv
+XI77 net0864 net0852 VDD VSS / inv
+XI76 net0860 net0856 VDD VSS / inv
+XI75 net0844 net0860 VDD VSS / inv
+XI74 net0808 net0864 VDD VSS / inv
+XI73 net0924 net0868 VDD VSS / inv
+XI72 net0888 net0872 VDD VSS / inv
+XI71 net0872 net0876 VDD VSS / inv
+XI70 net0868 net0880 VDD VSS / inv
+XI69 net0880 net0884 VDD VSS / inv
+XI68 net0884 net0888 VDD VSS / inv
+XI67 net0896 net0892 VDD VSS / inv
+XI66 net0900 net0896 VDD VSS / inv
+XI65 net0912 net0900 VDD VSS / inv
+XI64 net0908 net0904 VDD VSS / inv
+XI63 net0892 net0908 VDD VSS / inv
+XI62 net0876 net0912 VDD VSS / inv
+XI61 net0952 net0916 VDD VSS / inv
+XI60 net0936 net0920 VDD VSS / inv
+XI59 net0920 net0924 VDD VSS / inv
+XI58 net0916 net0928 VDD VSS / inv
+XI57 net0928 net0932 VDD VSS / inv
+XI56 net0932 net0936 VDD VSS / inv
+XI55 net0944 net0940 VDD VSS / inv
+XI54 net0948 net0944 VDD VSS / inv
+XI53 net0960 net0948 VDD VSS / inv
+XI52 net0956 net0952 VDD VSS / inv
+XI51 net0940 net0956 VDD VSS / inv
+XI50 net0959 net0960 VDD VSS / inv
+XI49 net0963 net0964 VDD VSS / inv
+XI48 net0984 net0968 VDD VSS / inv
+XI47 net0968 net0972 VDD VSS / inv
+XI46 net0964 net0976 VDD VSS / inv
+XI45 net0976 net0980 VDD VSS / inv
+XI44 net0980 net0984 VDD VSS / inv
+XI43 net0992 net0988 VDD VSS / inv
+XI42 net0996 net0992 VDD VSS / inv
+XI41 net01008 net0996 VDD VSS / inv
+XI40 net01004 net01000 VDD VSS / inv
+XI39 net0988 net01004 VDD VSS / inv
+XI38 net0972 net01008 VDD VSS / inv
+XI37 net01048 net01012 VDD VSS / inv
+XI36 net01032 net01016 VDD VSS / inv
+XI35 net01016 net0771 VDD VSS / inv
+XI34 net01012 net01024 VDD VSS / inv
+XI33 net01024 net01028 VDD VSS / inv
+XI32 net01028 net01032 VDD VSS / inv
+XI31 net01040 net01036 VDD VSS / inv
+XI30 net01044 net01040 VDD VSS / inv
+XI29 net01056 net01044 VDD VSS / inv
+XI28 net01052 net01048 VDD VSS / inv
+XI27 net01036 net01052 VDD VSS / inv
+XI26 net01000 net01056 VDD VSS / inv
+XI25 net01136 net01060 VDD VSS / inv
+XI24 net01080 net01064 VDD VSS / inv
+XI23 net01064 net01068 VDD VSS / inv
+XI22 net01060 net01072 VDD VSS / inv
+XI21 net01072 net01076 VDD VSS / inv
+XI20 net01076 net01080 VDD VSS / inv
+XI19 net01088 net01084 VDD VSS / inv
+XI18 net01092 net01088 VDD VSS / inv
+XI17 net01104 net01092 VDD VSS / inv
+XI16 net01100 net0963 VDD VSS / inv
+XI15 net01084 net01100 VDD VSS / inv
+XI14 net01068 net01104 VDD VSS / inv
+XI13 net14 net01108 VDD VSS / inv
+XI9 net01120 net01112 VDD VSS / inv
+XI8 net01112 net01116 VDD VSS / inv
+XI10 net01108 net01120 VDD VSS / inv
+XI5 net6 net2 VDD VSS / inv
+XI4 net10 net6 VDD VSS / inv
+XI3 net22 net10 VDD VSS / inv
+XI11 net01140 net01136 VDD VSS / inv
+XI12 net01116 net01140 VDD VSS / inv
+XI7 net18 net14 VDD VSS / inv
+XI6 net2 net18 VDD VSS / inv
+XI2 net21 net22 VDD VSS / inv
+XI296 net0331 net282 VDD VSS / inv
+XIno282 net282 net283 VDD VSS / inv
+XIno283 net283 net284 VDD VSS / inv
+XIno284 net284 net285 VDD VSS / inv
+XIno285 net285 net286 VDD VSS / inv
+XIno286 net286 net287 VDD VSS / inv
+XIno287 net287 D2 VDD VSS / inv
+
+.ENDS
+
