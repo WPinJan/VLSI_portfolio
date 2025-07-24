@@ -1,0 +1,292 @@
+************************************************************************
+* auCdl Netlist:
+* 
+* Library Name:  VLSI
+* Top Cell Name: RIS3
+* View Name:     schematic
+* Netlisted on:  Dec 24 18:58:28 2024
+************************************************************************
+
+*.BIPOLAR
+*.RESI = 2000 
+*.RESVAL
+*.CAPVAL
+*.DIOPERI
+*.DIOAREA
+*.EQUATION
+*.SCALE METER
+*.MEGA
+.PARAM
+
+
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    TG
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT TG A B EN ENbar VDD VSS
+*.PININFO EN:I ENbar:I A:B B:B VDD:B VSS:B
+MM1 A ENbar B VDD P_18 W=500.00n L=180.00n m=1
+MM0 A EN B VSS N_18 W=500.00n L=180.00n m=1
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    XOR
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT XOR A Abar B Bbar VDD VSS Y
+*.PININFO A:I Abar:I B:I Bbar:I Y:O VDD:B VSS:B
+XI3 B Y Abar A VDD VSS / TG
+XI2 Bbar Y A Abar VDD VSS / TG
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    DFF
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT DFF CLK D Q Qbar VDD VSS
+*.PININFO CLK:I D:I Q:O Qbar:B VDD:B VSS:B
+MM0 net6 D VSS VSS N_18 W=500.0n L=180.00n m=1
+MM1 net10 CLK VSS VSS N_18 W=500.0n L=180.00n m=1
+MM2 net14 net22 VSS VSS N_18 W=500.0n L=180.00n m=1
+MM3 Q Qbar VSS VSS N_18 W=500.0n L=180.00n m=1
+MM9 net22 net6 net10 VSS N_18 W=500.0n L=180.00n m=1
+MM10 Qbar CLK net14 VSS N_18 W=500.0n L=180.00n m=1
+MM4 net6 CLK net33 VDD P_18 W=1.8u L=180.00n m=1
+MM5 net33 D VDD VDD P_18 W=1.8u L=180.00n m=1
+MM6 net22 CLK VDD VDD P_18 W=1.8u L=180.00n m=1
+MM7 Qbar net22 VDD VDD P_18 W=1.8u L=180.00n m=1
+MM8 Q Qbar VDD VDD P_18 W=1.8u L=180.00n m=1
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    DFF_dynamic
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT DFF_dynamic CLK D Q Qbar VDD VSS reset
+*.PININFO CLK:I D:I reset:I Q:O Qbar:O VDD:B VSS:B
+MM8 Q Qbar VDD VDD P_18 W=700n L=180.00n m=1
+MM7 Qbar net31 VDD VDD P_18 W=700n L=180.00n m=1
+MM6 net31 CLK VDD VDD P_18 W=700n L=180.00n m=1
+MM5 net26 D VDD VDD P_18 W=700.0n L=180.00n m=1
+MM4 net47 CLK net26 VDD P_18 W=700.0n L=180.00n m=1
+MM11 Qbar reset VSS VSS N_18 W=1.5u L=180.00n m=1
+MM10 Qbar CLK net39 VSS N_18 W=500.0n L=180.00n m=1
+MM9 net31 net47 net43 VSS N_18 W=500.0n L=180.00n m=1
+MM3 Q Qbar VSS VSS N_18 W=500.0n L=180.00n m=1
+MM2 net39 net31 VSS VSS N_18 W=500.0n L=180.00n m=1
+MM1 net43 CLK VSS VSS N_18 W=500.0n L=180.00n m=1
+MM0 net47 D VSS VSS N_18 W=500.0n L=180.00n m=1
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    LFSR10
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT LFSR10 CLK LFSR1 LFSR2 LFSR3 LFSR4 LFSR5 LFSR6 LFSR7 LFSR8 LFSR9 
++ LFSR10 LFSRbar1 LFSRbar2 LFSRbar3 LFSRbar4 LFSRbar5 LFSRbar6 LFSRbar7 
++ LFSRbar8 LFSRbar9 LFSRbar10 RST VDD VSS
+*.PININFO CLK:I RST:I LFSR1:B LFSR2:B LFSR3:B LFSR4:B LFSR5:B LFSR6:B LFSR7:B 
+*.PININFO LFSR8:B LFSR9:B LFSR10:B LFSRbar1:B LFSRbar2:B LFSRbar3:B LFSRbar4:B 
+*.PININFO LFSRbar5:B LFSRbar6:B LFSRbar7:B LFSRbar8:B LFSRbar9:B LFSRbar10:B 
+*.PININFO VDD:B VSS:B
+XI2 LFSR10 LFSRbar10 LFSR3 LFSRbar3 VDD VSS net62 / XOR
+XI4 CLK LFSR9 LFSR10 LFSRbar10 VDD VSS / DFF
+XI0 CLK LFSR10 LFSR1 LFSRbar1 VDD VSS / DFF
+XI15 CLK LFSR4 LFSR5 LFSRbar5 VDD VSS / DFF
+XI14 CLK LFSR5 LFSR6 LFSRbar6 VDD VSS / DFF
+XI18 CLK LFSR2 LFSR3 LFSRbar3 VDD VSS / DFF
+XI16 CLK net62 LFSR4 LFSRbar4 VDD VSS / DFF
+XI5 CLK LFSR8 LFSR9 LFSRbar9 VDD VSS / DFF
+XI1 CLK LFSR7 LFSR8 LFSRbar8 VDD VSS / DFF
+XI3 CLK LFSR6 LFSR7 LFSRbar7 VDD VSS / DFF
+XI6 CLK LFSR1 LFSR2 LFSRbar2 VDD VSS RST / DFF_dynamic
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    DFF_out
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT DFF_out CLK D Q Q_bar VDD VSS reset
+*.PININFO CLK:I D:I reset:I Q:O Q_bar:O VDD:B VSS:B
+MM0 net8 D VSS VSS N_18 W=500.0n L=180.00n m=1
+MM1 net12 CLK VSS VSS N_18 W=500n L=180.00n m=1
+MM2 net16 net24 VSS VSS N_18 W=500n L=180.00n m=1
+MM3 Q Q_bar VSS VSS N_18 W=500n L=180.00n m=1
+MM9 net24 net8 net12 VSS N_18 W=500n L=180.00n m=1
+MM10 Q_bar CLK net16 VSS N_18 W=500n L=180.00n m=1
+MM11 Q_bar reset VDD VDD P_18 W=700n L=180.00n m=1
+MM4 net8 CLK net39 VDD P_18 W=700n L=180.00n m=1
+MM5 net39 D VDD VDD P_18 W=700n L=180.00n m=1
+MM6 net24 CLK VDD VDD P_18 W=700n L=180.00n m=1
+MM7 Q_bar net24 VDD VDD P_18 W=700n L=180.00n m=1
+MM8 Q Q_bar VDD VDD P_18 W=700n L=180.00n m=1
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    mux
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT mux A B EN ENbar VDD VSS Y
+*.PININFO A:I B:I EN:I ENbar:I Y:O VDD:B VSS:B
+XI1 A Y EN ENbar VDD VSS / TG
+XI2 B Y ENbar EN VDD VSS / TG
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    M3pro2
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT M3pro2 CLK L0 L0_b VDD VSS bit0 bit1 reset reset_bar
+*.PININFO CLK:I L0:I L0_b:I reset:I reset_bar:I bit0:O bit1:O VDD:B VSS:B
+XI1 CLK prebit0 net12 net16 VDD VSS reset / DFF_out
+XI4 CLK prebit1 net19 net23 VDD VSS reset / DFF_out
+XI2 net40 net16 L0 L0_b VDD VSS bit0 / mux
+XI3 net23 net47 L0 L0_b VDD VSS bit1 / mux
+XI6 CLK bit0 prebit0 net40 VDD VSS reset_bar / DFF_dynamic
+XI9 CLK bit1 prebit1 net47 VDD VSS reset_bar / DFF_dynamic
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    M2pro
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT M2pro BIT0 BIT1 CLK L0 L0BAR L1 L1BAR L2 VDD VSS reset
+*.PININFO CLK:I reset:I BIT0:B BIT1:B L0:B L0BAR:B L1:B L1BAR:B L2:B VDD:B 
+*.PININFO VSS:B
+XI6 CLK BIT1 A1 A1BAR VDD VSS reset / DFF_out
+XI7 CLK BIT0 A0 A0BAR VDD VSS reset / DFF_out
+XI4 A0BAR net024 L0BAR L0 VDD VSS BIT0 / mux
+XI3 L2 A0 L1 L1BAR VDD VSS net024 / mux
+XI2 L2 A1 L1 L1BAR VDD VSS net13 / mux
+XI1 A1BAR net13 L0 L0BAR VDD VSS BIT1 / mux
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    M4
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT M4 N0 CLK RSTo RSTobar VDD VSS bit0 bit1
+*.PININFO CLK:I VDD:I VSS:I N0:B RSTo:B RSTobar:B bit0:B bit1:B
+XI10 CLK net031 bit0 N0 VDD VSS RSTobar / DFF_out
+XI8 CLK bit0 bit1 net031 VDD VSS RSTo / DFF_dynamic
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    MUXnew
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT MUXnew CH0 CH1 M0 M0bar M1 M1bar M10 M11 M20 M21 M30 M31 M40 M41 VDD 
++ VSS
+*.PININFO CH0:B CH1:B M0:B M0bar:B M1:B M1bar:B M10:B M11:B M20:B M21:B M30:B 
+*.PININFO M31:B M40:B M41:B VDD:B VSS:B
+XI7 M41 M31 M0 M0bar VDD VSS net33 / mux
+XI8 net33 net19 M1 M1bar VDD VSS CH1 / mux
+XI9 M21 M11 M0 M0bar VDD VSS net19 / mux
+XI2 net40 net54 M1 M1bar VDD VSS CH0 / mux
+XI1 M20 M10 M0 M0bar VDD VSS net54 / mux
+XI0 M40 M30 M0 M0bar VDD VSS net40 / mux
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    inv
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT inv IN OUT VDD VSS
+*.PININFO IN:I OUT:O VDD:B VSS:B
+Mm2 OUT IN VSS VSS N_18 W=250.00n L=180.00n m=1
+Mm1 OUT IN VDD VDD P_18 W=350n L=180.00n m=1
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    decoder
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT decoder S0 S0_bar S1 S1_bar VDD VSS ch0 ch1 ch2 ch3
+*.PININFO S0:I S0_bar:I S1:I S1_bar:I ch0:O ch1:O ch2:O ch3:O VDD:B VSS:B
+MM0 VSS S0 ch0 VSS N_18 W=250.0n L=180.00n
+MM1 VSS S1 ch0 VSS N_18 W=250.0n L=180.00n
+MM6 VSS S1 ch1 VSS N_18 W=250.0n L=180.00n
+MM7 VSS S0_bar ch1 VSS N_18 W=250.0n L=180.00n
+MM10 VSS S0 ch2 VSS N_18 W=250.0n L=180.00n
+MM11 VSS S1_bar ch2 VSS N_18 W=250.0n L=180.00n
+MM14 VSS S1_bar ch3 VSS N_18 W=250.0n L=180.00n
+MM15 VSS S0_bar ch3 VSS N_18 W=250.0n L=180.00n
+MM2 VDD S0 net44 VDD P_18 W=250.0n L=180.00n
+MM3 net44 S1 ch0 VDD P_18 W=250.0n L=180.00n
+MM4 net56 S1 ch1 VDD P_18 W=250.0n L=180.00n
+MM5 VDD S0_bar net56 VDD P_18 W=250.0n L=180.00n
+MM8 VDD S0 net60 VDD P_18 W=250.0n L=180.00n
+MM9 net60 S1_bar ch2 VDD P_18 W=250.0n L=180.00n
+MM12 net72 S1_bar ch3 VDD P_18 W=250.0n L=180.00n
+MM13 VDD S0_bar net72 VDD P_18 W=250.0n L=180.00n
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    output_control
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT output_control CH0 CH1 CH2 CH3 M0 M0_bar M1 M1_CH0 M1_CH1 M1_bar 
++ M2_CH0 M2_CH1 M3_CH0 M3_CH1 M4_CH0 M4_CH1 VDD VSS
+*.PININFO M0:I M0_bar:I M1:I M1_CH0:I M1_CH1:I M1_bar:I M2_CH0:I M2_CH1:I 
+*.PININFO M3_CH0:I M3_CH1:I M4_CH0:I M4_CH1:I CH0:O CH1:O CH2:O CH3:O VDD:B 
+*.PININFO VSS:B
+XI0 net64 net63 M0 M0_bar M1 M1_bar M1_CH0 M1_CH1 M2_CH0 M2_CH1 M3_CH0 M3_CH1 
++ M4_CH0 M4_CH1 VDD VSS / MUXnew
+XI3 net63 net38 VDD VSS / inv
+XI2 net64 net42 VDD VSS / inv
+XI1 net64 net42 net63 net38 VDD VSS CH0 CH1 CH2 CH3 / decoder
+.ENDS
+
+************************************************************************
+* Library Name: VLSI
+* Cell Name:    RIS3
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT RIS CLK RST VDD VSS M1 M0 CH3 CH2 CH1 CH0
+*.PININFO M0:I M1:I CH0:O CH1:O CH2:O CH3:O CLK:B RST:B VDD:B VSS:B
+XI25 CLK LFSR1 LFSR2 LFSR3 LFSR4 LFSR5 LFSR6 LFSR7 LFSR8 LFSR9 LFSR10 
++ LFSR1_bar LFSR2_bar LFSR3_bar LFSR4_bar LFSR5_bar LFSR6_bar LFSR7_bar 
++ LFSR8_bar LFSR9_bar LFSR10_bar RST VDD VSS / LFSR10
+XI18 CLK LFSR1 LFSR1_bar VDD VSS net071 net070 RSTobar RSTo / M3pro2
+XI23 RST RSTo CLK CLKbar VDD VSS / TG
+XI17 net083 net082 CLK LFSR7 LFSR7_bar LFSR5 LFSR5_bar LFSR6 VDD VSS RSTobar / 
++ M2pro
+XI4 net088 CLK RSTo RSTobar VDD VSS net089 net087 / M4
+XI5 CH0 CH1 CH2 CH3 M0 M0_bar M1 LFSR3 LFSR8 M1_bar net083 net082 net071 
++ net070 net089 net087 VDD VSS / output_control
+XI13 RSTo RSTobar VDD VSS / inv
+XI24 CLK CLKbar VDD VSS / inv
+XI8 M1 M1_bar VDD VSS / inv
+XI7 M0 M0_bar VDD VSS / inv
+.ENDS
+

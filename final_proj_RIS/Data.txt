@@ -1,0 +1,19 @@
+
+**** Your Sub-circuit **********************************************************
+.include 'RIS.spi'
+*.include 'RIS.pex.spi'
+
+**** Supply Voltage ************************************************************
+.param vdd = 1.8
+
+**** Clock Frequency ***********************************************************
+.param fclk = 0.8G
+
+**** Input delay (preventing hold time violation)*******************************
+.param td_in = 0.65n
+
+
+
+*0.7G  3.1n 1.42857142857n
+*presim: 0.8G td_in = 0.6n, sample initial time: 2.85n, period:  1.25n
+**postsim 0.51G td_in = 1.3n, sample initial time: ss-4.4215686n/rest-4n, period: 1.9607843137n
