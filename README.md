@@ -13,6 +13,9 @@ The main tools used were **Composer**, **HSPICE**, and **Laker**.
 - **Midterm Project** – Thermometer-to-Binary Converter (TBC) design and simulation
 - **Final Project** – Random Interleaved Sampling (RIS) method design and simulation
 
+Note: Most simulations and layouts were performed using the 0.18μm process. However, in HW4, additional simulation and layout were also conducted using the 16nm process (ADFP).  
+Due to confidentiality agreements, results and screenshots related to the 16nm process could not be taken from the workstation, and therefore are not included in the HW4 report.
+
 ---
 
 🔗 [Back to my GitHub Homepage](https://WPinJan.github.io)
